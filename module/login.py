@@ -1,12 +1,14 @@
-# -*- coding:utf-8 -*-
+﻿# -*- coding:utf-8 -*-
 from util.load_phantomjs import load_phantomjs
 import time
+from selenium.webdriver.common.keys import Keys
 
-def login(phantomjs,login_url,search_url= 0):
+def login(phantomjs,login_url):
     
     try:
         phantomjs.get(login_url)
         time.sleep(2)
+        phantomjs.save_screenshot(r'.\bdbutton.png')
         user_ID = input("请输入账号")
         user_Pwd = input("密码")
         phantomjs.find_element_by_id('unplay').clear()
@@ -15,7 +17,7 @@ def login(phantomjs,login_url,search_url= 0):
         phantomjs.find_element_by_id('pwplay').clear()
         phantomjs.find_element_by_id('pwplay').send_keys(user_Pwd)
 
-        phantomjs.save_screenshot(r'.\bdbutton.png')
+        phantomjs.save_screenshot(r'.\bdbutton1.png')
 
         code = input("验证码")
 
@@ -24,14 +26,8 @@ def login(phantomjs,login_url,search_url= 0):
         
         phantomjs.find_element_by_class_name('login-btn').click()
         time.sleep(2)
-        phantomjs.save_screenshot(r'.\bdbutton.png')
-    finally:
-        phantomjs.close()
-    return 
-
-if __name__ =='__main__':
-    phantomjs = load_phantomjs()
-    login_url = 'http://campus.chinaunicom.cn/ilearn/en/learner/jsp/login.jsp'
-    
-    
-    print(login(phantomjs,login_url))
+        phantomjs.save_screenshot(r'.\bdbutton2.png')
+    except:
+        print('error1!')
+        exit(0)
+    return phantomjs

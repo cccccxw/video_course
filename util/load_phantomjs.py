@@ -11,5 +11,5 @@ def load_phantomjs():
 
     
     phantomjs = webdriver.PhantomJS(executable_path=r'.\phantomjs.exe',desired_capabilities=dcap)
-    #phantomjs.set_window_size(20,20)
+    phantomjs.set_window_size(800,600)
     return phantomjs
