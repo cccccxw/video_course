@@ -1,23 +1,22 @@
-﻿# -*- coding:utf-8 -*-
-from util.load_phantomjs import load_phantomjs
-from module.login import login
-from module.run import run
-from url.url import *
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+#主函数入口
 
-phantomjs = load_phantomjs()
-login_url = 'http://campus.chinaunicom.cn/ilearn/en/learner/jsp/login.jsp'
-search_url = url_6  #分段开了，可合并  url_1,url_2,url_3,url_4,url_5,url_6
+from module.do_run import do_run
 
-ps = login(phantomjs,login_url)
+try_time = 5
+title_url = str(input("请复制专区网址："))
+user_name = str(input("请输入账号："))
+user_pwd = str(input("请输入密码："))
+delay = int(input("网络延迟情况，数字越小延迟越低，默认为1，可以小数："))
 
-print(search_url)
-try:
-    for i in range(len(search_url)):
-        if search_url[i]:
-            print(run(ps,search_url[-i]))
-            print("完成第"+str(i)+"个")
-except:
-    print("error3!")
-    exit(0)
-finally:
-    ps.close()
+while do_run(title_url,user_name,user_pwd,delay):
+    print("登录失败了...")
+    title_url = str(input("请复制专区网址："))
+    user_name = str(input("请输入账号："))
+    user_pwd = str(input("请输入密码："))
+    delay = int(input("网络延迟情况，数字越小延迟越低，默认为1，可以小数："))
+    try_time = try_time - 1
+    if try_time:
+        print("尝试次数过多...")
+        break
